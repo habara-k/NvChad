@@ -81,6 +81,10 @@ return packer.startup(
         }
 
         use {
+            "nvim-lua/lsp_extensions.nvim",
+        }
+
+        use {
             "neovim/nvim-lspconfig",
             after = "nvim-lspinstall",
             config = function()

@@ -1,6 +1,7 @@
 local present1, lspconfig = pcall(require, "lspconfig")
 local present2, lspinstall = pcall(require, "lspinstall")
-if not (present1 or present2) then
+local present3, _ = pcall(require, "lspextension")
+if not (present1 or present2 or present3) then
     return
 end
 
@@ -125,3 +126,7 @@ vim.notify = function(msg, log_level, _opts)
         vim.api.nvim_echo({{msg}}, true, {})
     end
 end
+
+vim.cmd[[
+autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter,CursorHold,CursorMoved *.rs :lua require"lsp_extensions".inlay_hints{ prefix = "", highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"}}
+]]
