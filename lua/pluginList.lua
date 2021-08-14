@@ -220,6 +220,13 @@ return packer.startup(
                 require "plugins.autopairs"
             end
         }
+        use {
+            "windwp/nvim-ts-autotag",
+            after = "nvim-treesitter",
+            config = function()
+                require "nvim-ts-autotag".setup()
+            end
+        }
 
         use {
             "andymass/vim-matchup",
