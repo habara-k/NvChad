@@ -74,3 +74,8 @@ vim.cmd [[let hidden_statusline = luaeval('require("chadrc").ui.hidden_statuslin
 -- vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
 -- File extension specific tabbing
 -- vim.cmd [[ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]
+vim.cmd [[
+autocmd Filetype cpp setlocal expandtab   tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype lua setlocal expandtab   tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype go  setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
+]]
