@@ -102,14 +102,32 @@ M.telescope = function()
     local m = user_map.telescope
 
     map("n", m.live_grep, ":Telescope live_grep<CR>", opt)
-    map("n", m.git_status, ":Telescope git_status <CR>", opt)
-    map("n", m.git_commits, ":Telescope git_commits <CR>", opt)
+    --map("n", m.git_status, ":Telescope git_status <CR>", opt)
+    --map("n", m.git_commits, ":Telescope git_commits <CR>", opt)
     map("n", m.find_files, ":Telescope find_files <CR>", opt)
     map("n", m.media_files, ":Telescope media_files <CR>", opt)
     map("n", m.buffers, ":Telescope buffers<CR>", opt)
     map("n", m.help_tags, ":Telescope help_tags<CR>", opt)
     map("n", m.oldfiles, ":Telescope oldfiles<CR>", opt)
     map("n", m.themes, ":Telescope themes<CR>", opt)
+    map("n", m.dap_commands, ":Telescope dap commands<CR>", opt)
+    map("n", m.dap_configurations, ":Telescope dap configurations<CR>", opt)
+    map("n", m.dap_list_breakpoints, ":Telescope dap list_breakpoints<CR>", opt)
+    map("n", m.dap_variables, ":Telescope dap variables<CR>", opt)
+    map("n", m.dap_frames, ":Telescope dap frames<CR>", opt)
+end
+
+M.dap = function()
+    local m = user_map.dap
+
+    map("n", m.continue, "<Cmd>lua require'dap'.continue()<CR>", opt)
+    map("n", m.run_last, "<Cmd>lua require'dap'.run_last()<CR>", opt)
+    map("n", m.close, "<Cmd>lua require'dap'.close()<CR>", opt)
+    map("n", m.step_over, "<Cmd>lua require'dap'.step_over()<CR>", opt)
+    map("n", m.toggle_breakpoint, "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", opt)
+    map("n", m.set_breakpoint_cond, "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opt)
+    map("n", m.set_breakpoint_msg, "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", opt)
+    map("n", m.repl_open, "<Cmd>lua require'dap'.repl.open()<CR>", opt)
 end
 
 M.bufferline = function()

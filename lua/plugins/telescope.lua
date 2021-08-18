@@ -73,6 +73,7 @@ require("telescope").load_extension("themes")
 if
     not pcall(
         function()
+            telescope.load_extension("dap")
             telescope.load_extension("fzf")
             telescope.load_extension("media_files")
         end
@@ -84,5 +85,5 @@ if
     vim.cmd 'autocmd User PackerComplete ++once lua print "Waiting for PackerCompile.." require("packer").compile()'
     vim.cmd 'autocmd User PackerCompileDone ++once echo "Packer Compile done, restart neovim."'
     require "pluginList"
-    require("packer").update("telescope-fzf-native.nvim", "telescope-media-files.nvim")
+    require("packer").update("telescope-fzf-native.nvim", "telescope-media-files.nvim", "telescope-dap.nvim")
 end

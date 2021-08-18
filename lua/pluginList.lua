@@ -143,6 +143,21 @@ return packer.startup(
             end
         }
 
+        -- dap
+        use {
+            "mfussenegger/nvim-dap",
+            after = "nvim-dap-python",
+            config = function()
+                require "plugins.dap"
+            end,
+            setup = function()
+                require "mappings".dap()
+            end
+        }
+        use {
+            "mfussenegger/nvim-dap-python"
+        }
+
         -- file managing , picker etc
         use {
             "kyazdani42/nvim-tree.lua",
@@ -182,6 +197,10 @@ return packer.startup(
                 },
                 {
                     "nvim-telescope/telescope-media-files.nvim"
+                },
+                {
+                    "nvim-telescope/telescope-dap.nvim",
+                    after = "nvim-dap"
                 }
             },
             config = function()
