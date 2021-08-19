@@ -9,11 +9,8 @@ local black = colors.black
 local black2 = colors.black2
 local one_bg = colors.one_bg
 local one_bg2 = colors.one_bg2
-local one_bg3 = colors.one_bg3
-local light_grey = colors.light_grey
 local grey = colors.grey
 local grey_fg = colors.grey_fg
-local grey_fg2 = colors.grey_fg2
 local red = colors.red
 local line = colors.line
 local green = colors.green
@@ -21,19 +18,21 @@ local nord_blue = colors.nord_blue
 local blue = colors.blue
 local yellow = colors.yellow
 local purple = colors.purple
+local pmenu_bg = colors.pmenu_bg
+local folder_bg = colors.folder_bg
 
 -- for guifg , bg
 
 local function fg(group, color)
-    cmd("hi " .. group .. " guifg=" .. color)
+   cmd("hi " .. group .. " guifg=" .. color)
 end
 
 local function bg(group, color)
-    cmd("hi " .. group .. " guibg=" .. color)
+   cmd("hi " .. group .. " guibg=" .. color)
 end
 
 local function fg_bg(group, fgcol, bgcol)
-    cmd("hi " .. group .. " guifg=" .. fgcol .. " guibg=" .. bgcol)
+   cmd("hi " .. group .. " guifg=" .. fgcol .. " guibg=" .. bgcol)
 end
 
 -- blankline
@@ -42,16 +41,25 @@ fg("IndentBlanklineChar", line)
 
 -- misc --
 fg("LineNr", grey)
-fg("Comment", grey_fg)
+
+-- Comments
+local ui = require("utils").load_config().ui
+
+if ui.italic_comments then
+   cmd("hi Comment gui=italic guifg=" .. grey_fg)
+else
+   fg("Comment", grey_fg)
+end
+
 fg("NvimInternalError", red)
 fg("VertSplit", line)
 fg("EndOfBuffer", black)
---fg_bg("Visual",light_grey, colors.lightbg)
+-- fg_bg("Visual",light_grey, colors.lightbg)
 
 -- Pmenu
 bg("Pmenu", one_bg)
 bg("PmenuSbar", one_bg2)
-bg("PmenuSel", green)
+bg("PmenuSel", pmenu_bg)
 bg("PmenuThumb", nord_blue)
 
 -- inactive statuslines as thin splitlines
@@ -67,8 +75,8 @@ fg_bg("DiffChange", grey_fg, "none")
 fg_bg("DiffModified", nord_blue, "none")
 
 -- NvimTree
-fg("NvimTreeFolderIcon", blue)
-fg("NvimTreeFolderName", blue)
+fg("NvimTreeFolderIcon", folder_bg)
+fg("NvimTreeFolderName", folder_bg)
 fg("NvimTreeGitDirty", red)
 fg("NvimTreeOpenedFolderName", blue)
 fg("NvimTreeEmptyFolderName", blue)
@@ -77,7 +85,7 @@ fg("NvimTreeVertSplit", darker_black)
 bg("NvimTreeVertSplit", darker_black)
 fg("NvimTreeEndOfBuffer", darker_black)
 
-cmd("hi NvimTreeRootFolder gui=underline guifg=" .. purple)
+cmd("hi NvimTreeRootFolder gui=underline guifg=" .. red)
 bg("NvimTreeNormal", darker_black)
 fg_bg("NvimTreeStatuslineNc", darker_black, darker_black)
 fg_bg("NvimTreeWindowPicker", red, black2)
@@ -111,10 +119,17 @@ fg("DashboardCenter", grey_fg)
 fg("DashboardShortcut", grey_fg)
 fg("DashboardFooter", grey_fg)
 
--- packer's floating window
+if require("utils").load_config().ui.transparency then
+   bg("Normal", "NONE")
+   bg("Folded", "NONE")
+   fg("Folded", "NONE")
+   bg("NvimTreeNormal", "NONE")
+   bg("NvimTreeVertSplit", "NONE")
+   fg("NvimTreeVertSplit", grey)
+   bg("NvimTreeStatusLineNC", "NONE")
+   fg("Comment", grey)
+end
 
-bg("NormalFloat", "NONE")
+-- For floating windows
+bg("NormalFloat", one_bg)
 fg("FloatBorder", blue)
-
--- set bg color for nvim
--- bg("Normal", black)

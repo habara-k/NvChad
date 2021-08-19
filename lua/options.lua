@@ -1,7 +1,12 @@
-local options = require("chadrc").options
 local opt = vim.opt
 local g = vim.g
 
+-- export user config as a global varibale
+g.nvchad_user_config = "chadrc"
+
+local options = require("utils").load_config().options
+
+opt.completeopt = { "menuone", "noselect" }
 opt.undofile = options.permanent_undo
 opt.ruler = options.ruler
 opt.hidden = options.hidden
@@ -18,15 +23,15 @@ opt.timeoutlen = options.timeoutlen
 opt.clipboard = options.clipboard
 
 -- disable nvim intro
-opt.shortmess:append("sI")
+opt.shortmess:append "sI"
 
 -- disable tilde on end of buffer: https://github.com/  neovim/neovim/pull/8546#issuecomment-643643758
-opt.fillchars = {eob = " "}
+opt.fillchars = { eob = " " }
 
 -- Numbers
 opt.number = options.number
 opt.numberwidth = options.numberwidth
--- opt.relativenumber = true
+opt.relativenumber = options.relativenumber
 
 -- Indenline
 opt.expandtab = options.expandtab
@@ -35,40 +40,47 @@ opt.smartindent = options.smartindent
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
-opt.whichwrap:append("<>hl")
+opt.whichwrap:append "<>hl"
 
 g.mapleader = options.mapleader
 g.auto_save = options.autosave
 
 -- disable builtin vim plugins
 local disabled_built_ins = {
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin",
-    "matchit"
+   "netrw",
+   "netrwPlugin",
+   "netrwSettings",
+   "netrwFileHandlers",
+   "gzip",
+   "zip",
+   "zipPlugin",
+   "tar",
+   "tarPlugin",
+   "getscript",
+   "getscriptPlugin",
+   "vimball",
+   "vimballPlugin",
+   "2html_plugin",
+   "logipat",
+   "rrhelper",
+   "spellfile_plugin",
+   "matchit",
 }
 
 for _, plugin in pairs(disabled_built_ins) do
-    g["loaded_" .. plugin] = 1
+   g["loaded_" .. plugin] = 1
 end
 
--- Don't show status line on certain windows
+-- Use relative & absolute line numbers in 'n' & 'i' modes respectively
+-- vim.cmd[[ au InsertEnter * set norelativenumber ]]
+-- vim.cmd[[ au InsertLeave * set relativenumber ]]
+
+-- Don't show any numbers inside terminals
 vim.cmd [[ au TermOpen term://* setlocal nonumber norelativenumber ]]
-vim.cmd [[let hidden_statusline = luaeval('require("chadrc").ui.hidden_statusline') | autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested if index(hidden_statusline, &ft) >= 0 | set laststatus=0 | else | set laststatus=2 | endif]]
+
+-- Don't show status line on certain windows
+vim.cmd [[ au TermOpen term://* setfiletype terminal ]]
+vim.cmd [[ let hidden_statusline = luaeval('require("utils").load_config().ui.hidden_statusline') | autocmd BufEnter,BufWinEnter,WinEnter,CmdwinEnter,TermEnter * nested if index(hidden_statusline, &ft) >= 0 | set laststatus=0 | else | set laststatus=2 | endif ]]
 
 -- Open a file from its last left off position
 -- vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]

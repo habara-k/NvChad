@@ -1,4 +1,4 @@
--- IMPORTANT NOTE : This is user config
+-- IMPORTANT NOTE : This is default config, so dont change anything here. (check chadrc.lua instead)
 
 local M = {}
 
@@ -20,7 +20,7 @@ M.ui = {
    hidden_statusline = {
       -- these are filetypes, not pattern matched
       "NvimTree",
-      -- "terminal",
+      "terminal",
    },
    statusline_style = "default", -- default, round , slant , block , arrow
 }
@@ -36,7 +36,6 @@ M.options = {
    timeoutlen = 400,
    clipboard = "unnamedplus",
    number = true,
-   -- relative numbers in normal mode tool at the bottom of options.lua
    relativenumber = false,
    numberwidth = 2,
    expandtab = true,
@@ -102,28 +101,13 @@ M.mappings = {
    },
    telescope = {
       live_grep = "<leader>fw",
-      --git_status = "<leader>gt",
-      --git_commits = "<leader>cm",
+      git_status = "<leader>gt",
+      git_commits = "<leader>cm",
       find_files = "<leader>ff",
       buffers = "<leader>fb",
       help_tags = "<leader>fh",
       oldfiles = "<leader>fo",
       themes = "<leader>th",
-      dap_commands = "<leader>dc",
-      dap_configurations = "<leader>dco",
-      dap_list_breakpoints = "<leader>db",
-      dap_variables = "<leader>dv",
-      dap_frames = "<leader>df"
-   },
-   dap = {
-      continue = "<leader>c",
-      close = "<leader>q",
-      run_last = "<leader>r",
-      step_over = "<leader>n",
-      toggle_breakpoint = "<leader>b",
-      set_breakpoint_cond = "<leader>B",
-      set_breakpoint_msg = "<leader>m",
-      repl_open = "<leader>p",
    },
    telescope_media = {
       media_files = "<leader>fp",
@@ -152,8 +136,7 @@ M.mappings = {
       new_wind = "<leader>w",
       new_vert = "<leader>v",
       new_hori = "<leader>h",
-   },
-   -- navigation in insert mode
+   }, -- navigation in insert mode
    insert_nav = {
       forward = "<C-l>",
       backward = "<C-h>",
@@ -162,7 +145,10 @@ M.mappings = {
       prev_line = "<C-j>",
       next_line = "<C-k>",
    },
+   -- non plugin
    misc = {
+      esc_Termmode = "jk", -- get out of terminal mode
+      close_buffer = "<S-x>", -- close current focused buffer
       copywhole_file = "<C-a>",
       toggle_linenr = "<leader>n", -- show or hide line number
       theme_toggle = "<leader>x",
