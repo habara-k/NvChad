@@ -185,7 +185,6 @@ return packer.startup(function()
       after = "plenary.nvim",
    }
 
-<<<<<<< HEAD
    use {
       "nvim-telescope/telescope.nvim",
       after = "plenary.nvim",
