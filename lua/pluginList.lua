@@ -94,6 +94,10 @@ return packer.startup(function()
          require("plugins.others").lspkind()
       end,
    }
+   use {
+      "nvim-lua/lsp_extensions.nvim",
+   }
+
 
    use {
       "ray-x/lsp_signature.nvim",
@@ -149,6 +153,21 @@ return packer.startup(function()
       end,
    }
 
+   -- dap
+   use {
+      "mfussenegger/nvim-dap",
+      after = "nvim-dap-python",
+      config = function()
+         require "plugins.dap"
+      end,
+      setup = function()
+         require "mappings".dap()
+      end
+   }
+   use {
+      "mfussenegger/nvim-dap-python"
+   }
+
    use {
       "kyazdani42/nvim-web-devicons",
       after = "nvim-base16.lua",
@@ -166,6 +185,7 @@ return packer.startup(function()
       after = "plenary.nvim",
    }
 
+<<<<<<< HEAD
    use {
       "nvim-telescope/telescope.nvim",
       after = "plenary.nvim",
@@ -180,6 +200,10 @@ return packer.startup(function()
             setup = function()
                require("mappings").telescope_media()
             end,
+         },
+         {
+            "nvim-telescope/telescope-dap.nvim",
+            after = "nvim-dap"
          },
          {
             "sudormrfbin/cheatsheet.nvim",
@@ -219,6 +243,13 @@ return packer.startup(function()
       config = function()
          require "plugins.autopairs"
       end,
+   }
+   use {
+      "windwp/nvim-ts-autotag",
+      after = "nvim-treesitter",
+      config = function()
+         require "nvim-ts-autotag".setup()
+      end
    }
 
    use {

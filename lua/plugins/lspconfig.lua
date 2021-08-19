@@ -1,6 +1,7 @@
 local present1, lspconfig = pcall(require, "lspconfig")
 local present2, lspinstall = pcall(require, "lspinstall")
-if not (present1 or present2) then
+local present3, _ = pcall(require, "lspextension")
+if not (present1 or present2 or present3) then
    return
 end
 
@@ -29,7 +30,7 @@ local function on_attach(client, bufnr)
    buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
    buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
    buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-   buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+   --buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 
    -- Set some keybinds conditional on server capabilities
    if client.resolved_capabilities.document_formatting then
@@ -121,3 +122,7 @@ vim.notify = function(msg, log_level, _opts)
       vim.api.nvim_echo({ { msg } }, true, {})
    end
 end
+
+vim.cmd[[
+autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter,CursorHold,CursorMoved *.rs :lua require"lsp_extensions".inlay_hints{ prefix = "", highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"}}
+]]

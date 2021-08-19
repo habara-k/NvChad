@@ -74,6 +74,7 @@ require("telescope").load_extension "terms"
 if not pcall(function()
    telescope.load_extension "fzf"
    telescope.load_extension "media_files"
+   telescope.load_extension("dap")
 end) then
    -- This should only trigger when in need of PackerSync, so better do it
    print "After completion of PackerCompile, restart neovim."
@@ -81,5 +82,5 @@ end) then
    vim.cmd 'autocmd User PackerComplete ++once lua print "Waiting for PackerCompile.." require("packer").compile()'
    vim.cmd 'autocmd User PackerCompileDone ++once echo "Packer Compile done, restart neovim."'
    require "pluginList"
-   require("packer").update("telescope-fzf-native.nvim", "telescope-media-files.nvim")
+   require("packer").update("telescope-fzf-native.nvim", "telescope-media-files.nvim", "telescope-dap.nvim")
 end
