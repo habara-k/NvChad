@@ -5,6 +5,8 @@ if not (present1 or present2) then
     return
 end
 
+vim.api.nvim_set_keymap("i", "<C-h>", "<BS>", {})
+
 autopairs.setup()
 autopairs_completion.setup(
     {
