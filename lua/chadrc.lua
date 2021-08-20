@@ -71,7 +71,7 @@ M.plugin_status = {
    vim_matchup = true,
    autosave_nvim = true,
    nvim_comment = true,
-   neoscroll_nvim = true,
+   neoscroll_nvim = false,
    telescope_media = true,
    cheatsheet = true,
 }
